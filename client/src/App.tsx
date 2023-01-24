@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
+import Notes from './components/Notes/Notes';
+import './App.css';
 
 function App() {
   return (
-    <div>
-      <h1>App</h1>
+    <div className="App">
+      <Notes />
     </div>
   );
 }
