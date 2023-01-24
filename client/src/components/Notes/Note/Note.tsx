@@ -5,7 +5,7 @@ interface Props {
   title: string;
   body: string;
   onDelete: (id: string) => void;
-  onEdit: (id, title, body) => void;
+  onEdit: ({}) => void;
 }
 
 const Note: React.FunctionComponent<Props> = ({
@@ -16,6 +16,8 @@ const Note: React.FunctionComponent<Props> = ({
   onEdit,
 }) => {
   const [descriptionIsShown, setDescriptionIsShown] = useState(true);
+
+  const editHandler = () => {};
   return (
     <div className="note">
       <p
@@ -26,7 +28,9 @@ const Note: React.FunctionComponent<Props> = ({
         {title}
       </p>
       {descriptionIsShown ? <div className="description">{body}</div> : null}
-      <button onClick={() => onEdit(id, title, body)}>edytuj</button>
+      <button onClick={() => onEdit({ id: id, title: title, body: body })}>
+        edytuj
+      </button>
       <button onClick={() => onDelete(id)} className="delete">
         usuń
       </button>

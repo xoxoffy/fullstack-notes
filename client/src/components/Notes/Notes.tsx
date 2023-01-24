@@ -21,6 +21,7 @@ const Notes: React.FunctionComponent = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [notes, setNotes] = useState(dummyNotes);
+  const [noteToEdit, setNoteToEdit] = useState({});
 
   const deleteNote = (id: string) => {
     const filteredNotes = [...notes].filter((note) => note.id !== id);
@@ -31,13 +32,21 @@ const Notes: React.FunctionComponent = () => {
     setNotes([...notes, newNote]);
   };
 
-  const onEdit = (editNote) => {
+  const editNote = (editNote) => {
     const index = notes.findIndex((item) => item.id === editNote.id);
+    console.log(index);
+
     if (index >= 0) {
       notes[index] = editNote;
-    }
 
-    setNotes(...notes, editNote);
+      setNotes([...notes]);
+    }
+    toggleModal();
+  };
+
+  const editNoteHandler = (note: any) => {
+    toggleModal();
+    setNoteToEdit(note);
   };
 
   const toggleModal = () => {
@@ -51,7 +60,7 @@ const Notes: React.FunctionComponent = () => {
         id={note.id}
         title={note.title}
         body={note.body}
-        onEdit={onEdit}
+        onEdit={editNoteHandler}
         onDelete={deleteNote}
       />
     );
@@ -61,7 +70,13 @@ const Notes: React.FunctionComponent = () => {
     <Fragment>
       <h1>Moje notatki</h1>
       <Modal isOpen={modalIsOpen} contentLabel="Edytuj notatkę">
-        <EditNote onEdit={onEdit} />
+        <EditNote
+          id={noteToEdit.id}
+          title={noteToEdit.title}
+          description={noteToEdit.body}
+          onEdit={editNote}
+        />
+        <button onClick={toggleModal}>Anuluj</button>
       </Modal>
       <NewNote onAdd={addNote} />
       {mappedNotes}
