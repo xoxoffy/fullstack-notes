@@ -21,6 +21,10 @@ h1 {
   color: whitesmoke;
   text-shadow: 4px 4px black;
 }
+
+h4 {
+  color: rgb(204, 21, 21);
+}
 .note button {
   margin: 2px;
   background-color: rgb(129, 70, 240);
